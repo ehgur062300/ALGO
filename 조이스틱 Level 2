@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int solution(string name) {
+int solution(string name) {https://github.com/ehgur062300/Coding_Test/blob/main/greedy
     int answer = 0;
     int n = name.length();
     int turn = n-1;
