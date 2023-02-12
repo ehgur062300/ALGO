@@ -1,0 +1,67 @@
+#include <iostream>
+#include <string>
+#include <deque>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+
+    int T = 0;
+    cin >> T;
+
+    while (T--) {
+        int io = 2;
+        deque<string>de;
+        int n = 0;
+        string p;
+        string x;
+        string temp;
+        cin >> p; //명령어 입력
+        cin >> n; //배열에 들어있는 수의 개수
+        cin >> x; //배열 x의 형태
+
+        int D_cnt = int(count(p.begin(), p.end(), 'D'));
+        if (D_cnt > n) { cout << "error" << "\n"; continue; }
+        else if (D_cnt == 0 && p.size() > 0 && n==0) { cout << "[]" <<"\n"; continue; }
+
+        for (int i = 0; i < x.size(); i++) {
+            temp = "";
+            while (1) {
+                if (x[i] < '0' || x[i] > '9') { break; }
+                else { temp += x[i]; i++; }
+            }
+            if (!temp.empty()) { de.push_back(temp); }
+        }
+
+        for (int j = 0; j < p.size(); j++) {
+            if (p[j] == 'D') {
+                if (io%2!=0) { de.pop_back(); }
+                else { de.pop_front(); }
+            }
+            else { io++; }
+        }
+
+        cout << "[";
+        if (io%2 != 0) {
+            while (!de.empty()) {
+                cout << de.back();
+                de.pop_back();
+                if (de.size() == 0) break;
+                cout << ",";
+            }
+        }
+        else {
+            while (!de.empty()) {
+                cout << de.front();
+                de.pop_front();
+                if (de.size() == 0) break;
+                cout << ",";
+            }
+        }
+        cout << "]" << "\n";
+    }
+
+    return 0;
+}
