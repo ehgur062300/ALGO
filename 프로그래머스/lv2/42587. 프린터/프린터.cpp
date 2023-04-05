@@ -6,35 +6,29 @@ using namespace std;
 
 int solution(vector<int> priorities, int location) {
     int answer = 0;
-    priority_queue<int> pq;
     queue<pair<int,int>> q;
+    priority_queue<int> pq;
     
-    int size = priorities.size();
-    for(int i=0; i<size; i++) {
-        q.push(make_pair(i, priorities[i]));
+    for(int i=0; i<priorities.size(); i++){
+        q.push({i,priorities[i]});
         pq.push(priorities[i]);
     }
     
-    while(!q.empty()) {
+    while(!q.empty()){
         int i = q.front().first;
         int p = q.front().second;
         q.pop();
         
-        //현재 문서의 중요도가 가장 높은 중요도라면 인쇄
-        if(p == pq.top()) {
-            pq.pop();
+        if(p == pq.top()){
             answer += 1;
+            pq.pop();
             
-            //현재 문서가 내가 인쇄를 요청한 문서다
-            if(i == location) {
-                break;
-            }
-            
-        } else {
-            //다시 큐에 넣는다.
-            q.push(make_pair(i,p));
+            if(i == location){ break; }
         }
- 
+        
+        else{
+            q.push({i,p});
+        }
     }
     return answer;
 }
