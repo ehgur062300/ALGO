@@ -9,7 +9,7 @@ int solution(vector<int> priorities, int location) {
     queue<pair<int,int>> q;
     priority_queue<int> pq;
     
-    for(int i=0; i<priorities.size(); i++){
+    for(int i=0; i < priorities.size(); i++){
         q.push({i,priorities[i]});
         pq.push(priorities[i]);
     }
@@ -20,15 +20,15 @@ int solution(vector<int> priorities, int location) {
         q.pop();
         
         if(p == pq.top()){
-            answer += 1;
+            answer++;
             pq.pop();
             
-            if(i == location){ break; }
+            if(i == location){
+                break;
+            }
         }
+        q.push({i,p});
         
-        else{
-            q.push({i,p});
-        }
     }
     return answer;
 }
