@@ -2,34 +2,18 @@
 #include <vector>
 #include <iostream>
 #include <map>
-
 using namespace std;
 
 vector<int> solution(int n, vector<string> words) {
-    vector<int> answer;
-    map<string, int> m;
-    int cnt = 0;
-    int p = 0;
-    bool io = false;
-    char prev[1] = {};
-
-    for(int i=0; i<words.size(); i++){
-        p++;
-        if(p > n){p=1; cnt++;}
-        if(i != 0 && words[i][0] != prev[0]){
-            io=true; cnt++; break;
-        }
-        if(m.find(words[i]) != m.end()){io=true; cnt++; break;}
-        m.insert(pair<string, int>(words[i], 1));
-        prev[0] = words[i][words[i].length()-1];
+    int len=words.size();
+    map<string,int> m;
+    m[words[0]]=1;
+    for(int i=1; i<len; i++){
+        int len1=words[i-1].size();
+        if(m[words[i]] || (words[i-1][len1-1]!=words[i][0]))
+            return {i%n+1,i/n+1};
+        else
+            m[words[i]]=1;
     }
-    if(io){ 
-        answer.push_back(p);
-        answer.push_back(cnt);
-    }
-    else{
-        answer.push_back(0);
-        answer.push_back(0);
-    }
-    return answer;
+    return {0,0};
 }
