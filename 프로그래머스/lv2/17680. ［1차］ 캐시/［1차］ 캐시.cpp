@@ -4,18 +4,16 @@
 
 using namespace std;
 
-int totalTime = 0;
-const int miss = 5;
-const int hit = 1;
+int run_time = 0;
+int miss = 5;
+int hit = 1;
 vector<string> recentlyUsed;
-unordered_set<string> cached;
+unordered_set<string> cache;
 
-using namespace std;
-
-void toLowercase (vector<string> &cities) {
-    for (int i = 0; i < cities.size(); i++) {
-        for (int j = 0; j < cities[i].size(); j++) {
-            if ('A' <= cities[i][j] && cities[i][j] <= 'Z') {
+void toLower(vector<string> &cities){
+    for(int i=0; i<cities.size(); i++){
+        for(int j=0; j<cities[i].size(); j++){
+            if(cities[i][j] >= 'A' && cities[i][j] <= 'Z'){
                 cities[i][j] += 32;
             }
         }
@@ -24,35 +22,32 @@ void toLowercase (vector<string> &cities) {
 
 int solution(int cacheSize, vector<string> cities) {
     
-    if (cacheSize == 0) return (5* cities.size());
+    if(cacheSize == 0){ return miss*cities.size(); }
     
-    toLowercase(cities);
+    toLower(cities);
     
-    for (auto &city : cities) {
-        
-        if (cached.find(city) == cached.end()) {
-            totalTime += miss;
-            if (recentlyUsed.size() == cacheSize) {
-                if (cacheSize != 0) {
-                    cached.erase(recentlyUsed[0]);
+    for(auto &city : cities){
+        if(cache.find(city) == cache.end()){
+            run_time += miss;
+            if(recentlyUsed.size() == cacheSize){
+                if(cacheSize != 0){
+                    cache.erase(recentlyUsed[0]);
                     recentlyUsed.erase(recentlyUsed.begin());
                 }
             }
-            cached.insert(city);
+            cache.insert(city);
             recentlyUsed.push_back(city);
         }
-        else {
-            totalTime += hit;
-            int i = 0;
-            for (i; i < recentlyUsed.size(); i++) {
-                if (recentlyUsed[i] == city) {
-                    break;
-                }
+        else{
+            run_time += hit;
+            int i;
+            for(i=0; i<recentlyUsed.size(); i++){
+                if(recentlyUsed[i] == city){break;}
             }
-            recentlyUsed.erase(recentlyUsed.begin() + i);
+        
+            recentlyUsed.erase(recentlyUsed.begin()+i);
             recentlyUsed.push_back(city);
         }
     }
-    
-    return totalTime;
+    return run_time;
 }
