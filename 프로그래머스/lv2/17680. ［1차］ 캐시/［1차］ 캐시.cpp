@@ -21,22 +21,19 @@ void toLower(vector<string> &cities){
 }
 
 int solution(int cacheSize, vector<string> cities) {
-    
-    if(cacheSize == 0){ return miss*cities.size(); }
-    
+    if(cacheSize == 0){ return cities.size()*miss; }
     toLower(cities);
     
     for(auto &city : cities){
-        if(cache.find(city) == cache.end()){
+        if(!cache.count(city)){
             run_time += miss;
-            if(recentlyUsed.size() == cacheSize){
-                if(cacheSize != 0){
-                    cache.erase(recentlyUsed[0]);
-                    recentlyUsed.erase(recentlyUsed.begin());
-                }
+            
+            if(cache.size() == cacheSize){
+                cache.erase(recentlyUsed[0]);
+                recentlyUsed.erase(recentlyUsed.begin());
             }
-            cache.insert(city);
             recentlyUsed.push_back(city);
+            cache.insert(city);
         }
         else{
             run_time += hit;
@@ -44,7 +41,6 @@ int solution(int cacheSize, vector<string> cities) {
             for(i=0; i<recentlyUsed.size(); i++){
                 if(recentlyUsed[i] == city){break;}
             }
-        
             recentlyUsed.erase(recentlyUsed.begin()+i);
             recentlyUsed.push_back(city);
         }
