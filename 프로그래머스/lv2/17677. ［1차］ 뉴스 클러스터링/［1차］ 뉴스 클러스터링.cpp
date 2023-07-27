@@ -31,16 +31,16 @@ int solution(string str1, string str2) {
         m1[temp1]++;
     }
     for(int j=1; j<str2.length(); j++){
-       string temp2 = "";
-       if(str2[j-1]<65 || str2[j-1]>90 || str2[j]<65 || str2[j]>90){continue;}
+        string temp2 = "";
+        if(str2[j-1]<65 || str2[j-1]>90 || str2[j]<65 || str2[j]>90){continue;}
        
         temp2 += str2[j-1];
         temp2 += str2[j];
-           m2[temp2]++;
-       }
+        m2[temp2]++;
+    }
     
     unordered_map<string, int>::iterator it;
-   for(it = m1.begin(); it != m1.end(); it++){
+    for(it = m1.begin(); it != m1.end(); it++){
         if(m2[it->first]){
             sub += min(m2[it->first], m1[it->first]);
             uni += max(m2[it->first], m1[it->first]);
