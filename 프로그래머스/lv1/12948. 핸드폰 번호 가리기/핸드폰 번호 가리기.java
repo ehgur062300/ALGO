@@ -2,16 +2,13 @@ import java.util.*;
 
 class Solution {
     public String solution(String phone_number) {
-        String answer = "";
+        char [] ch = phone_number.toCharArray();
         int len = phone_number.length();
         
-        for(int i=0; i<len; i++){
-            if(len-4 > i){
-                answer += "*";
-            }
-            else{ answer += phone_number.charAt(i); }
+        for(int i=0; i<len-4; i++){
+           ch[i] = '*';
         }
         
-        return answer;
+        return String.valueOf(ch);
     }
 }
