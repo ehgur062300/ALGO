@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
     public int solution(int n) {
         int answer = 0;
-        int cnt = trans(n), num = 0;
+        int cnt = Integer.bitCount(n);
         
         answer = result(n,cnt);
         return answer;
@@ -13,17 +13,9 @@ class Solution {
         
         while(true){
             n++;
-            result_cnt = trans(n);
+            result_cnt = Integer.bitCount(n);
             if(result_cnt == n_cnt){ return n; }
         }
         
-    }
-    private int trans(int n){
-        int cnt = 0;
-        while(n > 0){
-            if(n%2 == 1){ cnt++; }
-            n /= 2;
-        } 
-        return cnt;
     }
 }
