@@ -2,18 +2,13 @@ import java.util.*;
 
 class Solution {
     public int solution(int n) {
-        int cnt = Integer.bitCount(n);
-        
-        return result(n,cnt);
-    }
-    
-    private int result(int n, int n_cnt){
-        int result_cnt = 0;
+        int compareNum = n+1;
+        int trueBitCnt = Integer.bitCount(n);
         while(true){
-            n++;
-            result_cnt = Integer.bitCount(n);
-            if(result_cnt == n_cnt){ return n; }
+            if(Integer.bitCount(compareNum) == trueBitCnt){ 
+                return compareNum; 
+            }
+            compareNum++;
         }
-        
     }
 }
