@@ -9,15 +9,16 @@ class Solution {
             map.put(size, map.getOrDefault(size, 0)+1);
         }
         
-        List<Integer> keyList = new ArrayList<>(map.keySet());
+        List<Integer> valueList = new ArrayList<>(map.values());
+    
+        Collections.sort(valueList, Collections.reverseOrder());
         
-        keyList.sort((o1,o2) -> map.get(o2) - map.get(o1));
-        
-        int i=0;
-        while(k > 0){
-            k -= map.get(keyList.get(i));
+        for(int v:valueList){
+            k -= v;
             answer++;
-            i++;
+            if(k<=0){
+                break;
+            }
         }
                     
         return answer;
