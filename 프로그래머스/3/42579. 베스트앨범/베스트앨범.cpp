@@ -18,7 +18,6 @@ bool cmp_idx(pair<int, int> & a, pair<int, int> & b){
 vector<int> solution(vector<string> genres, vector<int> plays) {
     vector<int> answer;
     vector<pair<string,int>> album;
-    vector<pair<int,int>> best;
     map<string, int> m;
     map<string, int>::iterator it;
     
@@ -32,6 +31,7 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
     sort(album.begin(), album.end(), cmp);
     
     for(int i=0; i<album.size(); i++){
+        vector<pair<int,int>> best;
         for(int j=0; j<len; j++){
             if(album[i].first == genres[j]){
                 best.push_back({plays[j], j});
@@ -41,12 +41,8 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
         
         for(int i=0; i<best.size(); i++){
             answer.push_back(best[i].second);    
-            if(i == 1){ break; }
+            if(i){ break; }
         }
-        
-        
-        best.clear();
     }
-    
     return answer;
 }
