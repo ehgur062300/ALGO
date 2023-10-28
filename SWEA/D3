@@ -1,0 +1,31 @@
+#include<iostream>
+#include<cmath>
+ 
+using namespace std;
+ 
+int main(int argc, char** argv)
+{
+    int test_case;
+    int T;
+    
+    cin>>T;
+    for(test_case = 1; test_case <= T; ++test_case)
+    {
+ 
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        double a, b, c;
+        double result = 0.0;
+ 
+        cin >> a >> b >> c;
+        
+        result = abs(b-(a+c)/2);
+        if(result == 0){ result = 0.0; } 
+        cout<<fixed;
+        cout.precision(1);
+        cout << "#" << test_case  << " " << result <<"\n";
+        /////////////////////////////////////////////////////////////////////////////////////////////
+ 
+ 
+    }
+    return 0;
+}
