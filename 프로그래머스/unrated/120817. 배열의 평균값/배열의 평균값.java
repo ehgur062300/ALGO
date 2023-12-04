@@ -1,9 +1,9 @@
+import java.util.*;
+
 class Solution {
     public double solution(int[] numbers) {
         double answer = 0;
-        for(double n : numbers){
-            answer += n;
-        }
-        return answer/numbers.length;
+        answer = Arrays.stream(numbers).average().orElse(0);
+        return answer;
     }
 }
