@@ -3,15 +3,10 @@ import java.util.*;
 class Solution {
     public int solution(int[] numbers) {
         int answer = 0;        
-        List<Integer> numList = new ArrayList<>();
+        int size = numbers.length;
         
-        for(int n : numbers){
-            numList.add(n);
-        }
+        Arrays.sort(numbers);
         
-        Collections.sort(numList);
-        Collections.reverse(numList);
-        
-        return numList.get(0)*numList.get(1);
+        return numbers[size-1]*numbers[size-2];
     }
 }
