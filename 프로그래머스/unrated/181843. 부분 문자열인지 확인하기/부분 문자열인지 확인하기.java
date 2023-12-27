@@ -1,10 +1,9 @@
 class Solution {
     public int solution(String my_string, String target) {
-        String test = my_string.replace(target,"");
-        if(my_string.equals(test)){
-            return 0;
+        if(my_string.contains(target)){
+            return 1;
         }
         
-        return 1;
+        return 0;
     }
 }
