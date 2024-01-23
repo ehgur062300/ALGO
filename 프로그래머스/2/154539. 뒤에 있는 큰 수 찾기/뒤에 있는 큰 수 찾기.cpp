@@ -6,31 +6,16 @@
 using namespace std;
 
 vector<int> solution(vector<int> numbers) {
-    vector<int> answer;
-    stack<int> s;
-    
-    for(int n=numbers.size()-1; n>=0; n--){
-        if(s.empty()){
-            s.push(numbers[n]);
-            answer.push_back(-1);
-            continue;
+      vector<int> answer(numbers.size(), -1);
+    stack<int> stk;
+
+    for(int i=0; i<numbers.size(); i++) {
+        while(!stk.empty() && numbers[stk.top()] < numbers[i]) {
+            answer[stk.top()] = numbers[i];
+            stk.pop();
         }
-        while(!s.empty()){
-            if(s.top() <= numbers[n]){
-                s.pop();
-            }else{
-                answer.push_back(s.top());
-                s.push(numbers[n]);
-                break;
-            }
-        }
-        if(s.empty()){
-            s.push(numbers[n]);
-            answer.push_back(-1);
-        }    
+        stk.push(i);
     }
-    
-    reverse(answer.begin(),answer.end());
     
     return answer;
 }
