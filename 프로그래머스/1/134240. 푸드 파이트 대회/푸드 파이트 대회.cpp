@@ -1,10 +1,13 @@
 #include <string>
 #include <vector>
+#include <deque>
 
 using namespace std;
 
 string solution(vector<int> food) {
     string answer = "";
+    deque<int> dq;
+    deque<int>::iterator it;
     
     for(int i=1; i<food.size(); i++){
         int cnt=food[i];
@@ -17,14 +20,19 @@ string solution(vector<int> food) {
             
         }
         for(int j=0; j<cnt/2; j++){
-            answer += to_string(i);
+            dq.push_back(i);
         }
     }
-    string temp;
-    for(int i=answer.length()-1; i>=0; i--){
-        temp += answer[i];
+    
+    for(it=dq.begin(); it != dq.end(); it++){
+        answer += to_string(*it);
     }
-    answer += ("0" + temp);
+    answer += "0";
+    for(it=dq.end()-1; it >= dq.begin(); it--){
+        answer += to_string(*it);
+    }
+    
+    
     
     return answer;
 }
