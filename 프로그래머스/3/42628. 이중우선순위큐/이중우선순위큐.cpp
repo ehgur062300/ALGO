@@ -6,7 +6,7 @@ using namespace std;
 
 vector<int> solution(vector<string> operations) {
     vector<int> answer;
-    map<int,int> m;
+    multimap<int,int> m;
     
     for(string s : operations){
         if(s == "D -1"){
@@ -20,7 +20,7 @@ vector<int> solution(vector<string> operations) {
             }
         }else{
             int num = stoi(s.replace(0,2,""));
-            m[num]=1;
+            m.insert({num,1});
         }
     }
     
