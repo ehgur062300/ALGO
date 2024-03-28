@@ -15,7 +15,7 @@ int main() {
 
         int cnt, total=1;
         cin >> cnt;
-
+        
         if(!cnt){
             cout<<0<<"\n";
             continue;
@@ -26,20 +26,6 @@ int main() {
             cin >> str2;
             m[str2]++;
         }
-
-//        if(m.size() == 1 || m.empty()){
-//            cout << total;
-//            continue;
-//        }
-//
-//        int prev = m.begin()->second;
-//        int cur;
-//        map<string,int>::iterator it;
-//        for(it=++m.begin(); it!=m.end(); it++){
-//            cur = it->second;
-//            total += (cur*prev);
-//            prev = it->second;
-//        }
 
         for(auto & v : m) {
             total *= (v.second+1);
