@@ -1,6 +1,5 @@
 #include <iostream>
 #include <stack>
-#include <queue>
 #include <vector>
 
 using namespace std;
@@ -10,52 +9,33 @@ int main() {
 //    cin.tie(NULL);
 //    cout.tie(NULL);
 
-    int n;
+    int n, s=0;
     cin >> n;
 
-    queue<int> input, seq;
-    stack<int> answer, check, result;
+    stack<int> input;
     vector<bool> v;
 
-    for (int i = 1; i < n + 1; i++) {
+    for (int i = 0; i < n; i++) {
         int num;
         cin >> num;
 
-        input.emplace(num);
-        answer.emplace(num);
-        seq.emplace(i);
-    }
-
-    while(!seq.empty()){
-
-        check.push(seq.front()); seq.pop();
-        v.push_back(true);
-        if(check.top() == input.front()) {
-            while(!check.empty()){
-                if(check.top() == input.front()){
-                    result.push(check.top());
-                    check.pop();
-                    input.pop();
-                    v.push_back(false);
-                } else {
-                    break;
-                }
-            }
+        while(s<num){
+            input.emplace(++s);
+            v.push_back(true);
+        }
+        if(input.top() == num){
+            input.pop();
+            v.push_back(false);
+        }
+        else {
+            cout << "NO";
+            return 0;
         }
     }
 
-    while(!check.empty()){
-        result.push(check.top());
-        check.pop();
-    }
-
-    if(result == answer){
-        for(bool i : v){
-            if(i){ cout << "+\n"; }
-            else { cout << "-\n"; }
-        }
-    } else {
-        cout << "NO\n";
+    for(bool i : v){
+        if(i){ cout << "+\n"; }
+        else { cout << "-\n"; }
     }
 
     return 0;
