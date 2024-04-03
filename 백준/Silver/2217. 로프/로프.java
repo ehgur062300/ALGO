@@ -3,21 +3,20 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        List<Integer> list = new ArrayList<>();
 
         int n = sc.nextInt();
+        int[] ropes = new int[n];
         for(int i=0; i<n; i++){
-            int rope = sc.nextInt();
-            list.add(rope);
+            ropes[i] = sc.nextInt();
         }
-        list.sort(Comparator.naturalOrder());
+        Arrays.sort(ropes);
 
-        int max = 0;
-        for(int r:list){
-            if(max < r*n){ max = r*n; }
+        int answer = 0;
+        for(int r:ropes){
+            answer = Math.max(answer,r*n);
             n--;
         }
 
-        System.out.print(max);
+        System.out.print(answer);
     }
 }
