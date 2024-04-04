@@ -3,6 +3,7 @@ import java.util.*;
 class Solution {
     public String solution(String[] participant, String[] completion) {
         Map<String,Integer> m = new HashMap<>();
+        String answer="";
         
         for(String p:participant){
             if(m.containsKey(p)){ 
@@ -19,7 +20,9 @@ class Solution {
             }
         }
         
-        return m.entrySet().iterator().next().getKey(); 
-    
+        for(String k:m.keySet()){
+            answer = k;
+        }
+        return answer;
     }
 }
