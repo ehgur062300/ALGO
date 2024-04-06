@@ -2,20 +2,21 @@ import java.util.*;
 
 class Solution {
     public String solution(String number, int k) {
-        String answer = "";
+        char[] result = new char[number.length()-k];
+        Stack<Character> s = new Stack<>();
         
-        int len = number.length()-k;
-        for(int i=0,idx = -1; i<len; i++){
-            char max = '0';
-            for(int j=idx+1; j<=k+i; j++){
-                if(max < number.charAt(j)){
-                    max = number.charAt(j);
-                    idx = j;
-                    if(max == '9'){ break; }
-                }
+        for(int i=0; i<number.length(); i++){
+            char c = number.charAt(i);
+            while(!s.isEmpty() && s.peek() < c && k-- > 0){
+                s.pop();
             }
-            answer += max;
+            s.push(c);
         }
-        return answer;
+        
+        for(int i=0; i<result.length; i++){
+            result[i] = s.get(i);
+        }
+        
+        return new String(result);
     }
 }
