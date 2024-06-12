@@ -1,55 +1,44 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        List<Pair> schedule = new ArrayList<>();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int N = sc.nextInt();
+        int result = 1;
+        int N = Integer.parseInt(br.readLine());
+        int[][] arr = new int[N][2];
 
-        for(int i=0; i<N; i++){
-            int k = sc.nextInt();
-            int v = sc.nextInt();
-            schedule.add(new Pair(k,v));
-        }
-        schedule.sort(new Comparator<Pair>() {
-            @Override
-            public int compare(Pair o1, Pair o2) {
-                if(o1.getEnd() == o2.getEnd()){
-                    return o1.getStart()-o2.getStart();
-                }
-                return o1.getEnd()-o2.getEnd();
+        for(int i = 0; i < N; i++){
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            if (st.hasMoreTokens()) {
+                arr[i][0] = Integer.parseInt(st.nextToken());
             }
+            if (st.hasMoreTokens()) {
+                arr[i][1] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        Arrays.sort(arr, (o1, o2) -> {
+            if(o1[1] == o2[1]){
+                return o1[0] - o2[0];
+            }
+            return o1[1] - o2[1];
         });
-        int cnt = 1;
-        int chk = schedule.get(0).getEnd();
+
+        int start = arr[0][0];
+        int end = arr[0][1];
         for(int i=1; i<N; i++){
-            if(schedule.get(i).getStart() >= chk){
-                chk = schedule.get(i).getEnd();
-                cnt++;
+            if(arr[i][0] >= end){
+                result++;
+                start = arr[i][0];
+                end = arr[i][1];
             }
         }
 
-        System.out.println(cnt);
-    }
-    private static class Pair{
-        int start;
-        int end;
-
-        public Pair(int start, int end){
-            this.start = start;
-            this.end = end;
-        }
-
-        int getStart(){
-            return start;
-        }
-
-        int getEnd(){
-            return end;
-        }
+        System.out.println(result);
     }
 }
