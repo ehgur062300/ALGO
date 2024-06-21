@@ -6,8 +6,8 @@ import java.util.*;
 public class Main {
 
     private static int N,M,cnt=0;
-    private static String[][] tile = new String[50][50];
-    private static boolean[][] vis = new boolean[50][50];
+    private static final String[][] tile = new String[50][50];
+    private static final boolean[][] vis = new boolean[50][50];
 
     public static void main(String[] args) throws IOException {
 
@@ -20,11 +20,7 @@ public class Main {
         for(int n=0; n<N; n++){
             tile[n] = br.readLine().split("");
         }
-        check();
-        System.out.print(cnt);
-    }
 
-    static void check() {
         for(int i=0; i<N; i++){
             for(int j=0; j<M; j++){
                 if(!vis[i][j]){
@@ -34,16 +30,21 @@ public class Main {
                 }
             }
         }
+        System.out.print(cnt);
     }
 
-    static void dfs(int i, int j, String t){
-        if(Objects.equals(t, tile[i][j])) {
-            vis[i][j] = true;
-            if(t.equals("-") && j+1<M){
-                dfs(i, j+1, t);
+    static void dfs(int x, int y, String t){
+        if(Objects.equals(t, tile[x][y])) {
+            vis[x][y] = true;
+
+            int nx = x+1;
+            int ny = y+1;
+
+            if(t.equals("-") && ny<M){
+                dfs(x, ny, t);
             }
-            if(t.equals("|") && i+1<N) {
-                dfs(i+1, j, t);
+            if(t.equals("|") && nx<N) {
+                dfs(nx, y, t);
             }
         }
     }
