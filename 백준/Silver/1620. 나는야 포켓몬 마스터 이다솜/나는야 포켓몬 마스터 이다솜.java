@@ -1,30 +1,29 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
+import java.io.*;
+import java.util.HashMap;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
 
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        Map<String,String> map = new HashMap<>();
-
-
-        for(int i=0; i<N; i++){
+        HashMap<String,String> map = new HashMap<>();
+        for(int n=1; n<=N; n++){
             String name = br.readLine();
-            String idx = String.valueOf(i+1);
-            map.put(name,idx);
-            map.put(idx,name);
+            map.put(name, String.valueOf(n));
+            map.put(String.valueOf(n),name);
         }
 
-        for(int i=0; i<M; i++){
-            String problem = br.readLine();
-            System.out.println(map.get(problem));
+        for(int m=0; m<M; m++){
+            bw.write(map.get(br.readLine()));
+            bw.newLine();
         }
-
+        bw.flush();
+        bw.close();
     }
+
 }
