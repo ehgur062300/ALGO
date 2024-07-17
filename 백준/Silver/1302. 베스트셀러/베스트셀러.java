@@ -16,10 +16,14 @@ public class Main {
             booksSoldToday.put(book, booksSoldToday.getOrDefault(book, 1)+1);
         }
 
-        List<Map.Entry<String, Integer>> bestSeller = new LinkedList<>(booksSoldToday.entrySet());
-        bestSeller.sort(Map.Entry.<String, Integer>comparingByValue(Collections.reverseOrder())
-                        .thenComparing(Map.Entry.comparingByKey()));
+        String bestSeller = booksSoldToday.entrySet()
+                                    .stream()
+                                    .min(
+                                            Map.Entry.<String, Integer>comparingByValue(Comparator.reverseOrder())
+                                                    .thenComparing(Map.Entry.comparingByKey()))
+                                    .get()
+                                    .getKey();
 
-        System.out.print(bestSeller.get(0).getKey());
+        System.out.println(bestSeller);
     }
 }
