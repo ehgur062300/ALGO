@@ -1,75 +1,48 @@
-
-
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
+    public static final int DELETED_NODE = -10000;
+    static int N;
+    static List<Integer> tree = new ArrayList<>();
 
-    private static final Map<Integer, List<Integer>> tree = new HashMap<>();
-    private static int cnt = 0;
-    private static int root;
+    public static void main(String[] args) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            N = Integer.parseInt(br.readLine());
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String[] input = br.readLine().split(" ");
 
-        int N = Integer.parseInt(br.readLine());
-        String[] parents = br.readLine().split(" ");
+            for (String inp : input) {
+                tree.add(Integer.parseInt(inp));
+            }
+
+            int deletedNodeNumber = Integer.parseInt(br.readLine());
+
+            dfs(deletedNodeNumber);
+
+            int answer = 0;
+
+            for (int i = 0; i < N; i++) {
+                if (tree.get(i) != DELETED_NODE && !tree.contains(i)) {
+                    answer++;
+                }
+            }
+
+            System.out.println(answer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void dfs(int deletedNodeNumber) {
+        tree.set(deletedNodeNumber, DELETED_NODE);
 
         for (int i = 0; i < N; i++) {
-            int parent = Integer.parseInt(parents[i]);
-
-            if (parent == -1) {
-                root = i;  // 루트 노드 설정
-                continue;
+            if (tree.get(i) == deletedNodeNumber) {
+                dfs(i);
             }
-
-            tree.putIfAbsent(parent, new ArrayList<>());
-            tree.get(parent).add(i);
-        }
-
-        int delIndex = Integer.parseInt(br.readLine());
-
-        deleteNode(delIndex);
-
-        // 루트가 삭제되지 않은 경우에만 리프 노드 계산
-        if (delIndex != root) {
-            countLeafNodes(root);
-        }
-
-        System.out.print(cnt);
-    }
-
-    private static void countLeafNodes(int node) {
-        if (!tree.containsKey(node) || tree.get(node).isEmpty()) {
-            cnt++;
-            return;
-        }
-
-        for (int child : tree.get(node)) {
-            countLeafNodes(child);
-        }
-    }
-
-    private static void deleteNode(int node) {
-        // 노드를 삭제하기 위해 큐 사용 (BFS 방식)
-        Queue<Integer> toDelete = new LinkedList<>();
-        toDelete.add(node);
-
-        while (!toDelete.isEmpty()) {
-            int current = toDelete.poll();
-
-            // 현재 노드에 자식이 있으면, 삭제할 노드 큐에 추가
-            if (tree.containsKey(current)) {
-                toDelete.addAll(tree.get(current));
-                tree.remove(current);  // 현재 노드를 트리에서 제거
-            }
-        }
-
-        // 부모 노드에서 삭제된 노드에 대한 참조 제거
-        for (int parent : tree.keySet()) {
-            tree.get(parent).remove(Integer.valueOf(node));
         }
     }
 }
